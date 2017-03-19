@@ -22,108 +22,82 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-};
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
+var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var storageJar_min = createCommonjsModule(function (module, exports) {
   !function (e, t) {
-    "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : e.StorageJar = t();
+    "object" == (typeof exports === "undefined" ? "undefined" : _typeof$1(exports)) && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : e.StorageJar = t();
   }(commonjsGlobal, function () {
     "use strict";
-    var e = function e(_e, t) {
-      if (!(_e instanceof t)) throw new TypeError("Cannot call a class as a function");
-    },
-        t = function () {
+    function e(e, t) {
+      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+    }var t = function () {
       function e(e, t) {
         for (var n = 0; n < t.length; n++) {
-          var r = t[n];r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(e, r.key, r);
+          var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
         }
-      }return function (t, n, r) {
-        return n && e(t.prototype, n), r && e(t, r), t;
+      }return function (t, n, i) {
+        return n && e(t.prototype, n), i && e(t, i), t;
       };
-    }(),
-        n = function () {
+    }();return function () {
       function n() {
         e(this, n);
       }return t(n, null, [{ key: "contains", value: function value(e) {
-          var t = this.read(e);return null !== t;
-        } }, { key: "convertDaysToMillis", value: function value(e) {
-          return 24 * e * 60 * 60 * 1e3;
+          return null !== this.read(e);
         } }, { key: "delete", value: function value(e) {
           return !!this.contains(e) && (this.hasLocalStorage() ? window.localStorage.removeItem(e) : this.write(e, "", -1), !0);
         } }, { key: "generateStorageValue", value: function value(e, t) {
           return { value: e, timestamp: this.generateLifetimeTimestamp(t) };
         } }, { key: "generateLifetimeTimestamp", value: function value(e) {
-          var t = new Date();return t.getTime() + this.convertDaysToMillis(e);
+          return new Date().getTime() + e;
         } }, { key: "hasLocalStorage", value: function value() {
           return window.localStorage;
         } }, { key: "isTimestampValid", value: function value(e) {
-          var t = new Date();return t.getTime() <= e;
+          return new Date().getTime() <= e;
         } }, { key: "read", value: function value(e) {
           if (this.hasLocalStorage()) {
             var t = JSON.parse(window.localStorage.getItem(e));if (null !== t && this.isTimestampValid(t.timestamp)) return t;
-          } else for (var n = e + "=", r = document.cookie.split(";"), i = 0; i < r.length; i++) {
-            for (var a = r[i]; " " == a.charAt(0);) {
+          } else for (var n = e + "=", i = document.cookie.split(";"), r = 0; r < i.length; r++) {
+            for (var a = i[r]; " " == a.charAt(0);) {
               a = a.substring(1);
             }if (0 == a.indexOf(n)) return a.substring(n.length, a.length);
           }return null;
         } }, { key: "write", value: function value(e, t) {
-          var n = arguments.length <= 2 || void 0 === arguments[2] ? 7 : arguments[2];if (this.hasLocalStorage()) {
-            var r = this.generateStorageValue(t, n);window.localStorage.setItem(e, JSON.stringify(r));
+          var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 36e5;if (this.hasLocalStorage()) {
+            var i = this.generateStorageValue(t, n);window.localStorage.setItem(e, JSON.stringify(i));
           } else {
-            var i = new Date();i.setTime(i.getTime() + 24 * n * 60 * 60 * 1e3);var a = "; expires=" + i.toGMTString();document.cookie = e + " = " + t + a + "; path=/";
+            var r = new Date();r.setTime(r.getTime() + 24 * n * 60 * 60 * 1e3);var a = "; expires=" + r.toGMTString();document.cookie = e + " = " + t + a + "; path=/";
           }
         } }]), n;
-    }();return n;
+    }();
   });
 });
 
+var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$1 = createCommonjsModule(function (module) {
   function isObject(value) {
-    var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+    var type = typeof value === 'undefined' ? 'undefined' : _typeof$2(value);
     return !!value && (type == 'object' || type == 'function');
   }
 
   module.exports = isObject;
 });
 
+var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$4 = createCommonjsModule(function (module) {
-  var freeGlobal = _typeof(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+  var freeGlobal = _typeof$4(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
   module.exports = freeGlobal;
 });
 
+var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$3 = createCommonjsModule(function (module) {
   var freeGlobal = __moduleExports$4;
 
-  var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' && self && self.Object === Object && self;
+  var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof$3(self)) == 'object' && self && self.Object === Object && self;
 
   var root = freeGlobal || freeSelf || Function('return this')();
 
@@ -140,13 +114,17 @@ var __moduleExports$2 = createCommonjsModule(function (module) {
   module.exports = now;
 });
 
+var _typeof$6 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$7 = createCommonjsModule(function (module) {
   function isObjectLike(value) {
-    return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object';
+    return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof$6(value)) == 'object';
   }
 
   module.exports = isObjectLike;
 });
+
+var _typeof$5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$6 = createCommonjsModule(function (module) {
   var isObjectLike = __moduleExports$7;
@@ -158,7 +136,7 @@ var __moduleExports$6 = createCommonjsModule(function (module) {
   var objectToString = objectProto.toString;
 
   function isSymbol(value) {
-    return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+    return (typeof value === 'undefined' ? 'undefined' : _typeof$5(value)) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
   }
 
   module.exports = isSymbol;
@@ -770,9 +748,11 @@ var __moduleExports$33 = createCommonjsModule(function (module) {
   module.exports = mapCacheClear;
 });
 
+var _typeof$7 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$43 = createCommonjsModule(function (module) {
   function isKeyable(value) {
-    var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+    var type = typeof value === 'undefined' ? 'undefined' : _typeof$7(value);
     return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
   }
 
@@ -1694,13 +1674,15 @@ var __moduleExports$103 = createCommonjsModule(function (module) {
   module.exports = stubFalse;
 });
 
+var _typeof$8 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$102 = createCommonjsModule(function (module, exports) {
   var root = __moduleExports$3,
       stubFalse = __moduleExports$103;
 
-  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$8(exports)) == 'object' && exports && !exports.nodeType && exports;
 
-  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$8(module)) == 'object' && module && !module.nodeType && module;
 
   var moduleExports = freeModule && freeModule.exports === freeExports;
 
@@ -1916,12 +1898,14 @@ var __moduleExports$107 = createCommonjsModule(function (module) {
   module.exports = baseUnary;
 });
 
+var _typeof$9 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$108 = createCommonjsModule(function (module, exports) {
   var freeGlobal = __moduleExports$4;
 
-  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
+  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$9(exports)) == 'object' && exports && !exports.nodeType && exports;
 
-  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$9(module)) == 'object' && module && !module.nodeType && module;
 
   var moduleExports = freeModule && freeModule.exports === freeExports;
 
@@ -2118,6 +2102,8 @@ var __moduleExports$112 = createCommonjsModule(function (module) {
   module.exports = baseRest;
 });
 
+var _typeof$10 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var __moduleExports$114 = createCommonjsModule(function (module) {
   var eq = __moduleExports$14,
       isArrayLike = __moduleExports$62,
@@ -2128,7 +2114,7 @@ var __moduleExports$114 = createCommonjsModule(function (module) {
     if (!isObject(object)) {
       return false;
     }
-    var type = typeof index === 'undefined' ? 'undefined' : _typeof(index);
+    var type = typeof index === 'undefined' ? 'undefined' : _typeof$10(index);
     if (type == 'number' ? isArrayLike(object) && isIndex(index, object.length) : type == 'string' && index in object) {
       return eq(object[index], value);
     }
@@ -2180,9 +2166,15 @@ var merge = createCommonjsModule(function (module) {
   module.exports = merge;
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Exitent = function () {
   function Exitent(options) {
-    classCallCheck(this, Exitent);
+    _classCallCheck(this, Exitent);
 
     this.eventListeners = new Map();
     this.displays = 0;
@@ -2193,7 +2185,7 @@ var Exitent = function () {
     this.init();
   }
 
-  createClass(Exitent, [{
+  _createClass(Exitent, [{
     key: 'addEvent',
     value: function addEvent(elementId, eventName, callback) {
       var element = elementId === 'document' ? document : document.getElementById(elementId);
@@ -2211,10 +2203,10 @@ var Exitent = function () {
   }, {
     key: 'executeCallbacks',
     value: function executeCallbacks() {
-      var _options = this.options;
-      var preExitent = _options.preExitent;
-      var onExitent = _options.onExitent;
-      var postExitent = _options.postExitent;
+      var _options = this.options,
+          preExitent = _options.preExitent,
+          onExitent = _options.onExitent,
+          postExitent = _options.postExitent;
 
       if (preExitent !== null && typeof preExitent === 'function') preExitent();
       if (onExitent !== null && typeof onExitent === 'function') onExitent();
@@ -2244,11 +2236,11 @@ var Exitent = function () {
   }, {
     key: 'mouseDidMove',
     value: function mouseDidMove(event) {
-      var _options2 = this.options;
-      var maxDisplays = _options2.maxDisplays;
-      var storageName = _options2.storageName;
-      var storageLife = _options2.storageLife;
-      var checkReferrer = _options2.checkReferrer;
+      var _options2 = this.options,
+          maxDisplays = _options2.maxDisplays,
+          storageName = _options2.storageName,
+          storageLife = _options2.storageLife,
+          checkReferrer = _options2.checkReferrer;
 
       if (this.shouldDisplay(event.clientY)) {
         if (checkReferrer) {
@@ -2267,9 +2259,9 @@ var Exitent = function () {
     key: 'removeEvent',
     value: function removeEvent(key) {
       var item = this.eventListeners.get(key);
-      var element = item.element;
-      var eventName = item.eventName;
-      var callback = item.callback;
+      var element = item.element,
+          eventName = item.eventName,
+          callback = item.callback;
 
       element.removeEventListener(eventName, callback);
       this.eventListeners.delete(key);
@@ -2277,10 +2269,10 @@ var Exitent = function () {
   }, {
     key: 'shouldDisplay',
     value: function shouldDisplay(position) {
-      var _options3 = this.options;
-      var threshold = _options3.threshold;
-      var maxDisplays = _options3.maxDisplays;
-      var storageName = _options3.storageName;
+      var _options3 = this.options,
+          threshold = _options3.threshold,
+          maxDisplays = _options3.maxDisplays,
+          storageName = _options3.storageName;
 
       if (position <= threshold && this.displays < maxDisplays) {
         if (!storageJar_min.contains(storageName)) {
@@ -2302,6 +2294,7 @@ var Exitent = function () {
       }
     }
   }]);
+
   return Exitent;
 }();
 

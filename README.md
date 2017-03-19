@@ -27,7 +27,7 @@ Or, if you would rather -- it may be included directly inline within your HTML d
   'eventThrottle': 500,
   'checkReferrer': true,
   'storageName': 'exitent-visited',
-  'storageLife': 7,
+  'storageLife': 3600000,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null
@@ -39,7 +39,7 @@ Or, if you would rather -- it may be included directly inline within your HTML d
 -   `eventThrottle` the amount of time to wait in milliseconds to invoke the handler responsible for scroll events.
 -   `checkReferrer` whether or not to check the referring page to see if it's on the same domain and this isn't the first pageview.
 -   `storageName` the name/key to store the localStorage item (or cookie) under.
--   `storageLife` the expiration in days of the localStorage item (or cookie).
+-   `storageLife` the expiration in milliseconds of the localStorage item (or cookie).
 -   `preExitent` function to call when before an exit intent has been detected. This accepts no arguments since none are necessary.
 -   `onExitent` function to call when an exit intent has been detected. This accepts no arguments since none are necessary.
 -   `postExitent` function to call when after an exit intent has been detected. This accepts no arguments since none are necessary.
