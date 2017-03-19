@@ -1,7 +1,7 @@
 import {defaultConfiguration} from './configuration/default';
-import StorageJar from 'storage-jar';
 import throttle from 'lodash/throttle';
 import merge from 'lodash/merge';
+import store from 'store';
 
 /**
  * Exitent is a light-weight Exit Intent detection library.  Use Exitent to
@@ -25,11 +25,26 @@ export default class Exitent {
    */
   constructor(options) {
     this.eventListeners = new Map();
-    this.displays = 0;
     this.options = defaultConfiguration;
+
     if (arguments.length === 1 && typeof options === 'object') {
       this.options = this.mergeOptions(defaultConfiguration, options);
     }
+
+    const stored = store.get(this.options.storageName);
+    let displays = 0
+
+    if (!stored) {
+      const now = new Date().getTime();
+      store.set(this.options.storageName, {
+        displays: 0,
+        expires: now + this.options.storageLife 
+      });
+      this.displays = 0;
+    } else {
+      this.displays = stored.displays;
+    } 
+
     this.init();
   }
   /**
@@ -106,7 +121,7 @@ export default class Exitent {
    * @private
    */
   mouseDidMove(event) {
-    const {maxDisplays, storageName, storageLife, checkReferrer} = this.options;
+    const {maxDisplays, checkReferrer} = this.options;
     if (this.shouldDisplay(event.clientY)) {
       if (checkReferrer) {
         let link = document.createElement('a');
@@ -115,9 +130,6 @@ export default class Exitent {
         if (document.referrer === "" || (link.host !== document.location.host))
           return;
       }
-
-      if (this.displays === maxDisplays && (! StorageJar.contains(storageName)))
-        StorageJar.write(storageName, storageName, storageLife);
 
       this.handleMouseEvent();
     }
@@ -144,12 +156,20 @@ export default class Exitent {
    * @private
    */
   shouldDisplay(position) {
-    const {threshold, maxDisplays, storageName} = this.options;
+    const {threshold, maxDisplays, storageName, storageLife} = this.options;
+    const now = new Date().getTime();
+    let { expires } = store.get(storageName);
+    if (expires <= now) { 
+      expires = now + storageLife;
+      this.displays = 0;
+    }
     if (position <= threshold && this.displays < maxDisplays) {
-      if (! StorageJar.contains(storageName)) {
-        this.displays++;
-        return true;
-      }
+      this.displays++;
+      store.set(this.options.storageName, {
+        displays: this.displays,
+        expires 
+      });
+      return true;
     }
     return false;
   }

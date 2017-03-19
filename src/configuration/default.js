@@ -3,8 +3,8 @@ const defaultConfiguration = {
   'maxDisplays': 1,
   'eventThrottle': 1000,
   'checkReferrer': false,
-  'storageName': 'exitent-visited',
-  'storageLife': 7,
+  'storageName': 'exitent',
+  'storageLife': 3600000,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null

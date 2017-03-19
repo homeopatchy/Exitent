@@ -9,8 +9,8 @@ var defaultConfiguration = {
   'maxDisplays': 1,
   'eventThrottle': 1000,
   'checkReferrer': false,
-  'storageName': 'exitent-visited',
-  'storageLife': 7,
+  'storageName': 'exitent',
+  'storageLife': 3600000,
   'preExitent': null,
   'onExitent': null,
   'postExitent': null
@@ -24,80 +24,29 @@ function createCommonjsModule(fn, module) {
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var storageJar_min = createCommonjsModule(function (module, exports) {
-  !function (e, t) {
-    "object" == (typeof exports === "undefined" ? "undefined" : _typeof$1(exports)) && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : e.StorageJar = t();
-  }(commonjsGlobal, function () {
-    "use strict";
-    function e(e, t) {
-      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
-    }var t = function () {
-      function e(e, t) {
-        for (var n = 0; n < t.length; n++) {
-          var i = t[n];i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i);
-        }
-      }return function (t, n, i) {
-        return n && e(t.prototype, n), i && e(t, i), t;
-      };
-    }();return function () {
-      function n() {
-        e(this, n);
-      }return t(n, null, [{ key: "contains", value: function value(e) {
-          return null !== this.read(e);
-        } }, { key: "delete", value: function value(e) {
-          return !!this.contains(e) && (this.hasLocalStorage() ? window.localStorage.removeItem(e) : this.write(e, "", -1), !0);
-        } }, { key: "generateStorageValue", value: function value(e, t) {
-          return { value: e, timestamp: this.generateLifetimeTimestamp(t) };
-        } }, { key: "generateLifetimeTimestamp", value: function value(e) {
-          return new Date().getTime() + e;
-        } }, { key: "hasLocalStorage", value: function value() {
-          return window.localStorage;
-        } }, { key: "isTimestampValid", value: function value(e) {
-          return new Date().getTime() <= e;
-        } }, { key: "read", value: function value(e) {
-          if (this.hasLocalStorage()) {
-            var t = JSON.parse(window.localStorage.getItem(e));if (null !== t && this.isTimestampValid(t.timestamp)) return t;
-          } else for (var n = e + "=", i = document.cookie.split(";"), r = 0; r < i.length; r++) {
-            for (var a = i[r]; " " == a.charAt(0);) {
-              a = a.substring(1);
-            }if (0 == a.indexOf(n)) return a.substring(n.length, a.length);
-          }return null;
-        } }, { key: "write", value: function value(e, t) {
-          var n = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 36e5;if (this.hasLocalStorage()) {
-            var i = this.generateStorageValue(t, n);window.localStorage.setItem(e, JSON.stringify(i));
-          } else {
-            var r = new Date();r.setTime(r.getTime() + 24 * n * 60 * 60 * 1e3);var a = "; expires=" + r.toGMTString();document.cookie = e + " = " + t + a + "; path=/";
-          }
-        } }]), n;
-    }();
-  });
-});
-
-var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var __moduleExports$1 = createCommonjsModule(function (module) {
   function isObject(value) {
-    var type = typeof value === 'undefined' ? 'undefined' : _typeof$2(value);
+    var type = typeof value === 'undefined' ? 'undefined' : _typeof$1(value);
     return !!value && (type == 'object' || type == 'function');
   }
 
   module.exports = isObject;
 });
 
-var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$4 = createCommonjsModule(function (module) {
-  var freeGlobal = _typeof$4(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+  var freeGlobal = _typeof$3(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
   module.exports = freeGlobal;
 });
 
-var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$3 = createCommonjsModule(function (module) {
   var freeGlobal = __moduleExports$4;
 
-  var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof$3(self)) == 'object' && self && self.Object === Object && self;
+  var freeSelf = (typeof self === 'undefined' ? 'undefined' : _typeof$2(self)) == 'object' && self && self.Object === Object && self;
 
   var root = freeGlobal || freeSelf || Function('return this')();
 
@@ -114,17 +63,17 @@ var __moduleExports$2 = createCommonjsModule(function (module) {
   module.exports = now;
 });
 
-var _typeof$6 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$7 = createCommonjsModule(function (module) {
   function isObjectLike(value) {
-    return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof$6(value)) == 'object';
+    return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof$5(value)) == 'object';
   }
 
   module.exports = isObjectLike;
 });
 
-var _typeof$5 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$4 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$6 = createCommonjsModule(function (module) {
   var isObjectLike = __moduleExports$7;
@@ -136,7 +85,7 @@ var __moduleExports$6 = createCommonjsModule(function (module) {
   var objectToString = objectProto.toString;
 
   function isSymbol(value) {
-    return (typeof value === 'undefined' ? 'undefined' : _typeof$5(value)) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
+    return (typeof value === 'undefined' ? 'undefined' : _typeof$4(value)) == 'symbol' || isObjectLike(value) && objectToString.call(value) == symbolTag;
   }
 
   module.exports = isSymbol;
@@ -748,11 +697,11 @@ var __moduleExports$33 = createCommonjsModule(function (module) {
   module.exports = mapCacheClear;
 });
 
-var _typeof$7 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$6 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$43 = createCommonjsModule(function (module) {
   function isKeyable(value) {
-    var type = typeof value === 'undefined' ? 'undefined' : _typeof$7(value);
+    var type = typeof value === 'undefined' ? 'undefined' : _typeof$6(value);
     return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
   }
 
@@ -1674,15 +1623,15 @@ var __moduleExports$103 = createCommonjsModule(function (module) {
   module.exports = stubFalse;
 });
 
-var _typeof$8 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$7 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$102 = createCommonjsModule(function (module, exports) {
   var root = __moduleExports$3,
       stubFalse = __moduleExports$103;
 
-  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$8(exports)) == 'object' && exports && !exports.nodeType && exports;
+  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$7(exports)) == 'object' && exports && !exports.nodeType && exports;
 
-  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$8(module)) == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$7(module)) == 'object' && module && !module.nodeType && module;
 
   var moduleExports = freeModule && freeModule.exports === freeExports;
 
@@ -1898,14 +1847,14 @@ var __moduleExports$107 = createCommonjsModule(function (module) {
   module.exports = baseUnary;
 });
 
-var _typeof$9 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$8 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$108 = createCommonjsModule(function (module, exports) {
   var freeGlobal = __moduleExports$4;
 
-  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$9(exports)) == 'object' && exports && !exports.nodeType && exports;
+  var freeExports = (typeof exports === 'undefined' ? 'undefined' : _typeof$8(exports)) == 'object' && exports && !exports.nodeType && exports;
 
-  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$9(module)) == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && (typeof module === 'undefined' ? 'undefined' : _typeof$8(module)) == 'object' && module && !module.nodeType && module;
 
   var moduleExports = freeModule && freeModule.exports === freeExports;
 
@@ -2102,7 +2051,7 @@ var __moduleExports$112 = createCommonjsModule(function (module) {
   module.exports = baseRest;
 });
 
-var _typeof$10 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof$9 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var __moduleExports$114 = createCommonjsModule(function (module) {
   var eq = __moduleExports$14,
@@ -2114,7 +2063,7 @@ var __moduleExports$114 = createCommonjsModule(function (module) {
     if (!isObject(object)) {
       return false;
     }
-    var type = typeof index === 'undefined' ? 'undefined' : _typeof$10(index);
+    var type = typeof index === 'undefined' ? 'undefined' : _typeof$9(index);
     if (type == 'number' ? isArrayLike(object) && isIndex(index, object.length) : type == 'string' && index in object) {
       return eq(object[index], value);
     }
@@ -2166,6 +2115,899 @@ var merge = createCommonjsModule(function (module) {
   module.exports = merge;
 });
 
+var __moduleExports$116 = createCommonjsModule(function (module) {
+	var assign = make_assign();
+	var create = make_create();
+	var trim = make_trim();
+	var Global = typeof window !== 'undefined' ? window : commonjsGlobal;
+
+	module.exports = {
+		assign: assign,
+		create: create,
+		trim: trim,
+		bind: bind,
+		slice: slice,
+		each: each,
+		map: map,
+		pluck: pluck,
+		isList: isList,
+		isFunction: isFunction,
+		isObject: isObject,
+		Global: Global
+	};
+
+	function make_assign() {
+		if (Object.assign) {
+			return Object.assign;
+		} else {
+			return function shimAssign(obj, props1, props2, etc) {
+				for (var i = 1; i < arguments.length; i++) {
+					each(Object(arguments[i]), function (val, key) {
+						obj[key] = val;
+					});
+				}
+				return obj;
+			};
+		}
+	}
+
+	function make_create() {
+		if (Object.create) {
+			return function create(obj, assignProps1, assignProps2, etc) {
+				var assignArgsList = slice(arguments, 1);
+				return assign.apply(this, [Object.create(obj)].concat(assignArgsList));
+			};
+		} else {
+			var F = function F() {};
+
+			return function create(obj, assignProps1, assignProps2, etc) {
+				var assignArgsList = slice(arguments, 1);
+				F.prototype = obj;
+				return assign.apply(this, [new F()].concat(assignArgsList));
+			};
+		}
+	}
+
+	function make_trim() {
+		if (String.prototype.trim) {
+			return function trim(str) {
+				return String.prototype.trim.call(str);
+			};
+		} else {
+			return function trim(str) {
+				return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+			};
+		}
+	}
+
+	function bind(obj, fn) {
+		return function () {
+			return fn.apply(obj, Array.prototype.slice.call(arguments, 0));
+		};
+	}
+
+	function slice(arr, index) {
+		return Array.prototype.slice.call(arr, index || 0);
+	}
+
+	function each(obj, fn) {
+		pluck(obj, function (key, val) {
+			fn(key, val);
+			return false;
+		});
+	}
+
+	function map(obj, fn) {
+		var res = isList(obj) ? [] : {};
+		pluck(obj, function (v, k) {
+			res[k] = fn(v, k);
+			return false;
+		});
+		return res;
+	}
+
+	function pluck(obj, fn) {
+		if (isList(obj)) {
+			for (var i = 0; i < obj.length; i++) {
+				if (fn(obj[i], i)) {
+					return obj[i];
+				}
+			}
+		} else {
+			for (var key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					if (fn(obj[key], key)) {
+						return obj[key];
+					}
+				}
+			}
+		}
+	}
+
+	function isList(val) {
+		return val != null && typeof val != 'function' && typeof val.length == 'number';
+	}
+
+	function isFunction(val) {
+		return val && {}.toString.call(val) === '[object Function]';
+	}
+
+	function isObject(val) {
+		return val && {}.toString.call(val) === '[object Object]';
+	}
+});
+
+var __moduleExports$115 = createCommonjsModule(function (module) {
+	var util = __moduleExports$116;
+	var slice = util.slice;
+	var pluck = util.pluck;
+	var each = util.each;
+	var create = util.create;
+	var isList = util.isList;
+	var isFunction = util.isFunction;
+	var isObject = util.isObject;
+
+	module.exports = {
+		createStore: _createStore
+	};
+
+	var storeAPI = {
+		version: '2.0.4',
+		enabled: false,
+		storage: null,
+
+		addStorage: function addStorage(storage) {
+			if (this.enabled) {
+				return;
+			}
+			if (this._testStorage(storage)) {
+				this._storage.resolved = storage;
+				this.enabled = true;
+				this.storage = storage.name;
+			}
+		},
+
+		addPlugin: function addPlugin(plugin) {
+			var self = this;
+
+			if (isList(plugin)) {
+				each(plugin, function (plugin) {
+					self.addPlugin(plugin);
+				});
+				return;
+			}
+
+			var seenPlugin = pluck(this._seenPlugins, function (seenPlugin) {
+				return plugin === seenPlugin;
+			});
+			if (seenPlugin) {
+				return;
+			}
+			this._seenPlugins.push(plugin);
+
+			if (!isFunction(plugin)) {
+				throw new Error('Plugins must be function values that return objects');
+			}
+
+			var pluginProperties = plugin.call(this);
+			if (!isObject(pluginProperties)) {
+				throw new Error('Plugins must return an object of function properties');
+			}
+
+			each(pluginProperties, function (pluginFnProp, propName) {
+				if (!isFunction(pluginFnProp)) {
+					throw new Error('Bad plugin property: ' + propName + ' from plugin ' + plugin.name + '. Plugins should only return functions.');
+				}
+				self._assignPluginFnProp(pluginFnProp, propName);
+			});
+		},
+
+		get: function get(key, optionalDefaultValue) {
+			var data = this._storage().read(this._namespacePrefix + key);
+			return this._deserialize(data, optionalDefaultValue);
+		},
+
+		set: function set(key, value) {
+			if (value === undefined) {
+				return this.remove(key);
+			}
+			this._storage().write(this._namespacePrefix + key, this._serialize(value));
+			return value;
+		},
+
+		remove: function remove(key) {
+			this._storage().remove(this._namespacePrefix + key);
+		},
+
+		each: function each(callback) {
+			var self = this;
+			this._storage().each(function (val, namespacedKey) {
+				callback(self._deserialize(val), namespacedKey.replace(self._namespaceRegexp, ''));
+			});
+		},
+
+		clearAll: function clearAll() {
+			this._storage().clearAll();
+		},
+
+		hasNamespace: function hasNamespace(namespace) {
+			return this._namespacePrefix == '__storejs_' + namespace + '_';
+		},
+
+		namespace: function namespace(_namespace) {
+			if (!this._legalNamespace.test(_namespace)) {
+				throw new Error('store.js namespaces can only have alhpanumerics + underscores and dashes');
+			}
+
+			var namespacePrefix = '__storejs_' + _namespace + '_';
+			return create(this, {
+				_namespacePrefix: namespacePrefix,
+				_namespaceRegexp: namespacePrefix ? new RegExp('^' + namespacePrefix) : null
+			});
+		},
+
+		createStore: function createStore(storages, plugins) {
+			return _createStore(storages, plugins);
+		}
+	};
+
+	function _createStore(storages, plugins) {
+		var _privateStoreProps = {
+			_seenPlugins: [],
+			_namespacePrefix: '',
+			_namespaceRegexp: null,
+			_legalNamespace: /^[a-zA-Z0-9_\-]+$/,
+
+			_storage: function _storage() {
+				if (!this.enabled) {
+					throw new Error("store.js: No supported storage has been added! " + "Add one (e.g store.addStorage(require('store/storages/cookieStorage')) " + "or use a build with more built-in storages (e.g " + "https://github.com/marcuswestin/store.js/tree/master/dist/store.legacy.min.js)");
+				}
+				return this._storage.resolved;
+			},
+
+			_testStorage: function _testStorage(storage) {
+				try {
+					var testStr = '__storejs__test__';
+					storage.write(testStr, testStr);
+					var ok = storage.read(testStr) === testStr;
+					storage.remove(testStr);
+					return ok;
+				} catch (e) {
+					return false;
+				}
+			},
+
+			_assignPluginFnProp: function _assignPluginFnProp(pluginFnProp, propName) {
+				var oldFn = this[propName];
+				this[propName] = function pluginFn() {
+					var args = slice(arguments, 0);
+					var self = this;
+
+					function super_fn() {
+						if (!oldFn) {
+							return;
+						}
+						each(arguments, function (arg, i) {
+							args[i] = arg;
+						});
+						return oldFn.apply(self, args);
+					}
+
+					var newFnArgs = [super_fn].concat(args);
+
+					return pluginFnProp.apply(self, newFnArgs);
+				};
+			},
+
+			_serialize: function _serialize(obj) {
+				return JSON.stringify(obj);
+			},
+
+			_deserialize: function _deserialize(strVal, defaultVal) {
+				if (!strVal) {
+					return defaultVal;
+				}
+
+				var val = '';
+				try {
+					val = JSON.parse(strVal);
+				} catch (e) {
+					val = strVal;
+				}
+
+				return val !== undefined ? val : defaultVal;
+			}
+		};
+
+		var store = create(_privateStoreProps, storeAPI);
+		each(storages, function (storage) {
+			store.addStorage(storage);
+		});
+		each(plugins, function (plugin) {
+			store.addPlugin(plugin);
+		});
+		return store;
+	}
+});
+
+var __moduleExports$118 = createCommonjsModule(function (module) {
+	var util = __moduleExports$116;
+	var Global = util.Global;
+
+	module.exports = {
+		name: 'localStorage',
+		read: read,
+		write: write,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	function localStorage() {
+		return Global.localStorage;
+	}
+
+	function read(key) {
+		return localStorage().getItem(key);
+	}
+
+	function write(key, data) {
+		return localStorage().setItem(key, data);
+	}
+
+	function each(fn) {
+		for (var i = localStorage().length - 1; i >= 0; i--) {
+			var key = localStorage().key(i);
+			fn(read(key), key);
+		}
+	}
+
+	function remove(key) {
+		return localStorage().removeItem(key);
+	}
+
+	function clearAll() {
+		return localStorage().clear();
+	}
+});
+
+var __moduleExports$119 = createCommonjsModule(function (module) {
+
+	var util = __moduleExports$116;
+	var Global = util.Global;
+
+	module.exports = {
+		name: 'oldFF-globalStorage',
+		read: read,
+		write: write,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	var globalStorage = Global.globalStorage;
+
+	function read(key) {
+		return globalStorage[key];
+	}
+
+	function write(key, data) {
+		globalStorage[key] = data;
+	}
+
+	function each(fn) {
+		for (var i = globalStorage.length - 1; i >= 0; i--) {
+			var key = globalStorage.key(i);
+			fn(globalStorage[key], key);
+		}
+	}
+
+	function remove(key) {
+		return globalStorage.removeItem(key);
+	}
+
+	function clearAll() {
+		each(function (key, _) {
+			delete globalStorage[key];
+		});
+	}
+});
+
+var __moduleExports$120 = createCommonjsModule(function (module) {
+
+	var util = __moduleExports$116;
+	var Global = util.Global;
+
+	module.exports = {
+		name: 'oldIE-userDataStorage',
+		write: write,
+		read: read,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	var storageName = 'storejs';
+	var doc = Global.document;
+	var _withStorageEl = _makeIEStorageElFunction();
+	var disable = (Global.navigator ? Global.navigator.userAgent : '').match(/ (MSIE 8|MSIE 9|MSIE 10)\./);
+
+	function write(unfixedKey, data) {
+		if (disable) {
+			return;
+		}
+		var fixedKey = fixKey(unfixedKey);
+		_withStorageEl(function (storageEl) {
+			storageEl.setAttribute(fixedKey, data);
+			storageEl.save(storageName);
+		});
+	}
+
+	function read(unfixedKey) {
+		if (disable) {
+			return;
+		}
+		var fixedKey = fixKey(unfixedKey);
+		var res = null;
+		_withStorageEl(function (storageEl) {
+			res = storageEl.getAttribute(fixedKey);
+		});
+		return res;
+	}
+
+	function each(callback) {
+		_withStorageEl(function (storageEl) {
+			var attributes = storageEl.XMLDocument.documentElement.attributes;
+			for (var i = attributes.length - 1; i >= 0; i--) {
+				var attr = attributes[i];
+				callback(storageEl.getAttribute(attr.name), attr.name);
+			}
+		});
+	}
+
+	function remove(unfixedKey) {
+		var fixedKey = fixKey(unfixedKey);
+		_withStorageEl(function (storageEl) {
+			storageEl.removeAttribute(fixedKey);
+			storageEl.save(storageName);
+		});
+	}
+
+	function clearAll() {
+		_withStorageEl(function (storageEl) {
+			var attributes = storageEl.XMLDocument.documentElement.attributes;
+			storageEl.load(storageName);
+			for (var i = attributes.length - 1; i >= 0; i--) {
+				storageEl.removeAttribute(attributes[i].name);
+			}
+			storageEl.save(storageName);
+		});
+	}
+
+	var forbiddenCharsRegex = new RegExp("[!\"#$%&'()*+,/\\\\:;<=>?@[\\]^`{|}~]", "g");
+	function fixKey(key) {
+		return key.replace(/^\d/, '___$&').replace(forbiddenCharsRegex, '___');
+	}
+
+	function _makeIEStorageElFunction() {
+		if (!doc || !doc.documentElement || !doc.documentElement.addBehavior) {
+			return null;
+		}
+		var scriptTag = 'script',
+		    storageOwner,
+		    storageContainer,
+		    storageEl;
+
+		try {
+			storageContainer = new ActiveXObject('htmlfile');
+			storageContainer.open();
+			storageContainer.write('<' + scriptTag + '>document.w=window</' + scriptTag + '><iframe src="/favicon.ico"></iframe>');
+			storageContainer.close();
+			storageOwner = storageContainer.w.frames[0].document;
+			storageEl = storageOwner.createElement('div');
+		} catch (e) {
+			storageEl = doc.createElement('div');
+			storageOwner = doc.body;
+		}
+
+		return function (storeFunction) {
+			var args = [].slice.call(arguments, 0);
+			args.unshift(storageEl);
+
+			storageOwner.appendChild(storageEl);
+			storageEl.addBehavior('#default#userData');
+			storageEl.load(storageName);
+			storeFunction.apply(this, args);
+			storageOwner.removeChild(storageEl);
+			return;
+		};
+	}
+});
+
+var __moduleExports$121 = createCommonjsModule(function (module) {
+
+	var util = __moduleExports$116;
+	var Global = util.Global;
+	var trim = util.trim;
+
+	module.exports = {
+		name: 'cookieStorage',
+		read: read,
+		write: write,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	var doc = Global.document;
+
+	function read(key) {
+		if (!key || !_has(key)) {
+			return null;
+		}
+		var regexpStr = "(?:^|.*;\\s*)" + escape(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*";
+		return unescape(doc.cookie.replace(new RegExp(regexpStr), "$1"));
+	}
+
+	function each(callback) {
+		var cookies = doc.cookie.split(/; ?/g);
+		for (var i = cookies.length - 1; i >= 0; i--) {
+			if (!trim(cookies[i])) {
+				continue;
+			}
+			var kvp = cookies[i].split('=');
+			var key = unescape(kvp[0]);
+			var val = unescape(kvp[1]);
+			callback(val, key);
+		}
+	}
+
+	function write(key, data) {
+		if (!key) {
+			return;
+		}
+		doc.cookie = escape(key) + "=" + escape(data) + "; expires=Tue, 19 Jan 2038 03:14:07 GMT; path=/";
+	}
+
+	function remove(key) {
+		if (!key || !_has(key)) {
+			return;
+		}
+		doc.cookie = escape(key) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+	}
+
+	function clearAll() {
+		each(function (_, key) {
+			remove(key);
+		});
+	}
+
+	function _has(key) {
+		return new RegExp("(?:^|;\\s*)" + escape(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=").test(doc.cookie);
+	}
+});
+
+var __moduleExports$122 = createCommonjsModule(function (module) {
+	var util = __moduleExports$116;
+	var Global = util.Global;
+
+	module.exports = {
+		name: 'sessionStorage',
+		read: read,
+		write: write,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	function sessionStorage() {
+		return Global.sessionStorage;
+	}
+
+	function read(key) {
+		return sessionStorage().getItem(key);
+	}
+
+	function write(key, data) {
+		return sessionStorage().setItem(key, data);
+	}
+
+	function each(fn) {
+		for (var i = sessionStorage().length - 1; i >= 0; i--) {
+			var key = sessionStorage().key(i);
+			fn(read(key), key);
+		}
+	}
+
+	function remove(key) {
+		return sessionStorage().removeItem(key);
+	}
+
+	function clearAll() {
+		return sessionStorage().clear();
+	}
+});
+
+var __moduleExports$123 = createCommonjsModule(function (module) {
+
+	module.exports = {
+		name: 'memoryStorage',
+		read: read,
+		write: write,
+		each: each,
+		remove: remove,
+		clearAll: clearAll
+	};
+
+	var memoryStorage = {};
+
+	function read(key) {
+		return memoryStorage[key];
+	}
+
+	function write(key, data) {
+		memoryStorage[key] = data;
+	}
+
+	function each(callback) {
+		for (var key in memoryStorage) {
+			if (memoryStorage.hasOwnProperty(key)) {
+				callback(memoryStorage[key], key);
+			}
+		}
+	}
+
+	function remove(key) {
+		delete memoryStorage[key];
+	}
+
+	function clearAll(key) {
+		memoryStorage = {};
+	}
+});
+
+var __moduleExports$117 = createCommonjsModule(function (module) {
+	module.exports = {
+		'localStorage': __moduleExports$118,
+		'oldFF-globalStorage': __moduleExports$119,
+		'oldIE-userDataStorage': __moduleExports$120,
+		'cookieStorage': __moduleExports$121,
+		'sessionStorage': __moduleExports$122,
+		'memoryStorage': __moduleExports$123
+	};
+});
+
+var _typeof$10 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+if ((typeof JSON === "undefined" ? "undefined" : _typeof$10(JSON)) !== "object") {
+    JSON = {};
+}
+
+(function () {
+    "use strict";
+
+    var rx_one = /^[\],:{}\s]*$/;
+    var rx_two = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g;
+    var rx_three = /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g;
+    var rx_four = /(?:^|:|,)(?:\s*\[)+/g;
+    var rx_escapable = /[\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+    var rx_dangerous = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+
+    function f(n) {
+        return n < 10 ? "0" + n : n;
+    }
+
+    function this_value() {
+        return this.valueOf();
+    }
+
+    if (typeof Date.prototype.toJSON !== "function") {
+
+        Date.prototype.toJSON = function () {
+
+            return isFinite(this.valueOf()) ? this.getUTCFullYear() + "-" + f(this.getUTCMonth() + 1) + "-" + f(this.getUTCDate()) + "T" + f(this.getUTCHours()) + ":" + f(this.getUTCMinutes()) + ":" + f(this.getUTCSeconds()) + "Z" : null;
+        };
+
+        Boolean.prototype.toJSON = this_value;
+        Number.prototype.toJSON = this_value;
+        String.prototype.toJSON = this_value;
+    }
+
+    var gap;
+    var indent;
+    var meta;
+    var rep;
+
+    function quote(string) {
+
+        rx_escapable.lastIndex = 0;
+        return rx_escapable.test(string) ? "\"" + string.replace(rx_escapable, function (a) {
+            var c = meta[a];
+            return typeof c === "string" ? c : "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+        }) + "\"" : "\"" + string + "\"";
+    }
+
+    function str(key, holder) {
+
+        var i;
+        var k;
+        var v;
+        var length;
+        var mind = gap;
+        var partial;
+        var value = holder[key];
+
+        if (value && (typeof value === "undefined" ? "undefined" : _typeof$10(value)) === "object" && typeof value.toJSON === "function") {
+            value = value.toJSON(key);
+        }
+
+        if (typeof rep === "function") {
+            value = rep.call(holder, key, value);
+        }
+
+        switch (typeof value === "undefined" ? "undefined" : _typeof$10(value)) {
+            case "string":
+                return quote(value);
+
+            case "number":
+
+                return isFinite(value) ? String(value) : "null";
+
+            case "boolean":
+            case "null":
+
+                return String(value);
+
+            case "object":
+
+                if (!value) {
+                    return "null";
+                }
+
+                gap += indent;
+                partial = [];
+
+                if (Object.prototype.toString.apply(value) === "[object Array]") {
+
+                    length = value.length;
+                    for (i = 0; i < length; i += 1) {
+                        partial[i] = str(i, value) || "null";
+                    }
+
+                    v = partial.length === 0 ? "[]" : gap ? "[\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "]" : "[" + partial.join(",") + "]";
+                    gap = mind;
+                    return v;
+                }
+
+                if (rep && (typeof rep === "undefined" ? "undefined" : _typeof$10(rep)) === "object") {
+                    length = rep.length;
+                    for (i = 0; i < length; i += 1) {
+                        if (typeof rep[i] === "string") {
+                            k = rep[i];
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                } else {
+
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                }
+
+                v = partial.length === 0 ? "{}" : gap ? "{\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "}" : "{" + partial.join(",") + "}";
+                gap = mind;
+                return v;
+        }
+    }
+
+    if (typeof JSON.stringify !== "function") {
+        meta = {
+            "\b": "\\b",
+            "\t": "\\t",
+            "\n": "\\n",
+            "\f": "\\f",
+            "\r": "\\r",
+            "\"": "\\\"",
+            "\\": "\\\\"
+        };
+        JSON.stringify = function (value, replacer, space) {
+
+            var i;
+            gap = "";
+            indent = "";
+
+            if (typeof space === "number") {
+                for (i = 0; i < space; i += 1) {
+                    indent += " ";
+                }
+            } else if (typeof space === "string") {
+                indent = space;
+            }
+
+            rep = replacer;
+            if (replacer && typeof replacer !== "function" && ((typeof replacer === "undefined" ? "undefined" : _typeof$10(replacer)) !== "object" || typeof replacer.length !== "number")) {
+                throw new Error("JSON.stringify");
+            }
+
+            return str("", { "": value });
+        };
+    }
+
+    if (typeof JSON.parse !== "function") {
+        JSON.parse = function (text, reviver) {
+
+            var j;
+
+            function walk(holder, key) {
+
+                var k;
+                var v;
+                var value = holder[key];
+                if (value && (typeof value === "undefined" ? "undefined" : _typeof$10(value)) === "object") {
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = walk(value, k);
+                            if (v !== undefined) {
+                                value[k] = v;
+                            } else {
+                                delete value[k];
+                            }
+                        }
+                    }
+                }
+                return reviver.call(holder, key, value);
+            }
+
+            text = String(text);
+            rx_dangerous.lastIndex = 0;
+            if (rx_dangerous.test(text)) {
+                text = text.replace(rx_dangerous, function (a) {
+                    return "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+                });
+            }
+
+            if (rx_one.test(text.replace(rx_two, "@").replace(rx_three, "]").replace(rx_four, ""))) {
+
+                j = eval("(" + text + ")");
+
+                return typeof reviver === "function" ? walk({ "": j }, "") : j;
+            }
+
+            throw new SyntaxError("JSON.parse");
+        };
+    }
+})();
+
+var json2 = Object.freeze({
+
+});
+
+var __moduleExports$124 = createCommonjsModule(function (module) {
+	module.exports = json2Plugin;
+
+	function json2Plugin() {
+
+		return {};
+	}
+});
+
+var store_legacy = createCommonjsModule(function (module) {
+  var engine = __moduleExports$115;
+
+  var storages = __moduleExports$117;
+  var plugins = [__moduleExports$124];
+
+  module.exports = engine.createStore(storages, plugins);
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2177,11 +3019,26 @@ var Exitent = function () {
     _classCallCheck(this, Exitent);
 
     this.eventListeners = new Map();
-    this.displays = 0;
     this.options = defaultConfiguration;
+
     if (arguments.length === 1 && (typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
       this.options = this.mergeOptions(defaultConfiguration, options);
     }
+
+    var stored = store_legacy.get(this.options.storageName);
+    var displays = 0;
+
+    if (!stored) {
+      var now = new Date().getTime();
+      store_legacy.set(this.options.storageName, {
+        displays: 0,
+        expires: now + this.options.storageLife
+      });
+      this.displays = 0;
+    } else {
+      this.displays = stored.displays;
+    }
+
     this.init();
   }
 
@@ -2238,8 +3095,6 @@ var Exitent = function () {
     value: function mouseDidMove(event) {
       var _options2 = this.options,
           maxDisplays = _options2.maxDisplays,
-          storageName = _options2.storageName,
-          storageLife = _options2.storageLife,
           checkReferrer = _options2.checkReferrer;
 
       if (this.shouldDisplay(event.clientY)) {
@@ -2249,8 +3104,6 @@ var Exitent = function () {
 
           if (document.referrer === "" || link.host !== document.location.host) return;
         }
-
-        if (this.displays === maxDisplays && !storageJar_min.contains(storageName)) storageJar_min.write(storageName, storageName, storageLife);
 
         this.handleMouseEvent();
       }
@@ -2272,13 +3125,25 @@ var Exitent = function () {
       var _options3 = this.options,
           threshold = _options3.threshold,
           maxDisplays = _options3.maxDisplays,
-          storageName = _options3.storageName;
+          storageName = _options3.storageName,
+          storageLife = _options3.storageLife;
 
+      var now = new Date().getTime();
+
+      var _store$get = store_legacy.get(storageName),
+          expires = _store$get.expires;
+
+      if (expires <= now) {
+        expires = now + storageLife;
+        this.displays = 0;
+      }
       if (position <= threshold && this.displays < maxDisplays) {
-        if (!storageJar_min.contains(storageName)) {
-          this.displays++;
-          return true;
-        }
+        this.displays++;
+        store_legacy.set(this.options.storageName, {
+          displays: this.displays,
+          expires: expires
+        });
+        return true;
       }
       return false;
     }
